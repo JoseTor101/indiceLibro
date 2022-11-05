@@ -1,11 +1,12 @@
 class pTerminos:
-    def _init_(self, nombre):
+    def __init__(self, nombre):
         self.nombre = nombre
         self.izq = None
         self.der = None
         self.subT = sTerminos("")
         self.pags = numPaginas("")
-    def inserrarSterminos(self,nodo):
+
+    def insertarSterminos(self,nodo):
         while True:
             palabra = input()
             if palabra[0] == "s":
@@ -25,19 +26,19 @@ class pTerminos:
             if self.nombre == "":
                self.nombre = nombre
                insertarPaginas(self, valores) 
-               self.inserrarSterminos(self)
+               self.insertarSterminos(self)
             elif nombre < self.nombre:
                 if self.izq is None:
                     self.izq = pTerminos(nombre)
                     insertarPaginas(self.izq, valores)
-                    self.inserrarSterminos(self.izq)
+                    self.insertarSterminos(self.izq)
                 else:
                     self.izq.insertarElemento(nombre,valores)
             elif nombre > self.nombre:
                 if self.der is None:
                     self.der = pTerminos(nombre)
                     insertarPaginas(self.der, valores)
-                    self.inserrarSterminos(self.izq)
+                    self.insertarSterminos(self.izq)
                 else:
                     self.der.insertarElemento(nombre,valores)
         else:
@@ -75,7 +76,7 @@ class pTerminos:
                         self.der.printy()    
             
 class sTerminos:
-    def _init_(self, nombre):
+    def __init__(self, nombre):
         self.nombre = nombre
         self.izq = None
         self.der = None
@@ -125,7 +126,7 @@ class sTerminos:
                         self.der.printy()    
 
 class numPaginas:
-    def _init_(self, numPag):
+    def __init__(self, numPag):
         self.nombre = numPag
         self.izq = None
         self.der = None
