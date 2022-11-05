@@ -6,9 +6,9 @@ class pTerminos:
         self.subT = sTerminos("")
         self.pags = numPaginas("")
 
-    def insertarSterminos(self,nodo):
+    def insertarSterminos(self,nodo, palabra):
         while True:
-            palabra = input()
+            #palabra = input()
             if palabra[0] == "s":
                 digit = digito(palabra)
                 lista_pag = separarDigitos(palabra,digit)
@@ -26,19 +26,19 @@ class pTerminos:
             if self.nombre == "":
                self.nombre = nombre
                insertarPaginas(self, valores) 
-               self.insertarSterminos(self)
+             #  self.insertarSterminos(self)
             elif nombre < self.nombre:
                 if self.izq is None:
                     self.izq = pTerminos(nombre)
                     insertarPaginas(self.izq, valores)
-                    self.insertarSterminos(self.izq)
+                    #self.insertarSterminos(self.izq)
                 else:
                     self.izq.insertarElemento(nombre,valores)
             elif nombre > self.nombre:
                 if self.der is None:
                     self.der = pTerminos(nombre)
                     insertarPaginas(self.der, valores)
-                    self.insertarSterminos(self.izq)
+                   # self.insertarSterminos(self.izq)
                 else:
                     self.der.insertarElemento(nombre,valores)
         else:
@@ -188,20 +188,20 @@ def insertarPaginas(nodo, listapagina): #metodo para insertar las paginas una ve
     for i in listapagina:
         nodo.pags.insertarPag(i)
 def main():
-    
     root = pTerminos("")
-    while True:
-        palabra = input()
-        if palabra[0] == "m":
-            digit = digito(palabra)
-            lista_pag = separarDigitos(palabra,digit)
-            print(lista_pag)
-            lista_pag.sort()
-            root.insertarElemento(palabra[2:digit],lista_pag)
-        elif palabra[0] == "s":
-            digit = digito(palabra)
-            lista_pag = separarDigitos(palabra,digit)
-        else:
-                break
+
+    with open('datos.txt') as datos:
+        for linea in datos:
+            if linea[0] == "m":
+                digit = digito(linea)
+                lista_pag = separarDigitos(linea,digit)
+                lista_pag.sort()
+                root.insertarElemento(linea[2:digit],lista_pag)
+            elif linea[0] == "s":
+                digit = digito(linea)
+                lista_pag = separarDigitos(linea,digit)
+                lista_pag.sort()
+                root.subTinsertarElemento(linea[2:digit],lista_pag)
     print(root.printy())
+        
 main()
