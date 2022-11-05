@@ -155,7 +155,7 @@ class numPaginas:
                     if self.der is None:
                      print(self.nombre,"  ",end="")
                     else:
-                      print(self.nombre," ",end="")
+                      print(self.nombre,"  ",end="")
                       self.der.printy()  
                 else:
                     if self.der is None:
@@ -174,7 +174,6 @@ def separarDigitos(lineaPaginas,digitos):
             digitos.append(lineaPaginas[act:next1])
             act += 2
             next1 += 2
-        
         return digitos
 def digito(cadena):
     digito = 0
@@ -196,12 +195,14 @@ def main():
                 digit = digito(linea)
                 lista_pag = separarDigitos(linea,digit)
                 lista_pag.sort()
+                if lista_pag[0] == "\n" or " \n":
+                 lista_pag.pop(0)
                 root.insertarElemento(linea[2:digit],lista_pag)
             elif linea[0] == "s":
                 digit = digito(linea)
                 lista_pag = separarDigitos(linea,digit)
                 lista_pag.sort()
-                root.subTinsertarElemento(linea[2:digit],lista_pag)
+               # root.subTinsertarElemento(linea[2:digit],lista_pag)
     print(root.printy())
         
 main()
