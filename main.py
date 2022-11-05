@@ -1,170 +1,206 @@
 class pTerminos:
-    def __init__(self, nombre):
+    def _init_(self, nombre):
         self.nombre = nombre
         self.izq = None
         self.der = None
-        self.subT = None
-        self.pags = None
-
-    def insertarElemento(self, nombre):
+        self.subT = sTerminos("")
+        self.pags = numPaginas("")
+    def inserrarSterminos(self,nodo):
+        while True:
+            palabra = input()
+            if palabra[0] == "s":
+                digit = digito(palabra)
+                lista_pag = separarDigitos(palabra,digit)
+                print(lista_pag)
+                lista_pag.sort()
+                nodo.subT.insertarElemento(palabra[2:digit],lista_pag)
+            elif palabra[0] == "s":
+                digit = digito(palabra)
+                lista_pag = separarDigitos(palabra,digit)
+            else:
+                break
+        
+    def insertarElemento(self, nombre,valores):
         if self:
-            if nombre < self.nombre:
+            if self.nombre == "":
+               self.nombre = nombre
+               insertarPaginas(self, valores) 
+               self.inserrarSterminos(self)
+            elif nombre < self.nombre:
                 if self.izq is None:
                     self.izq = pTerminos(nombre)
+                    insertarPaginas(self.izq, valores)
+                    self.inserrarSterminos(self.izq)
                 else:
-                    self.izq.insertarElemento(nombre)
+                    self.izq.insertarElemento(nombre,valores)
             elif nombre > self.nombre:
                 if self.der is None:
                     self.der = pTerminos(nombre)
+                    insertarPaginas(self.der, valores)
+                    self.inserrarSterminos(self.izq)
                 else:
-                    self.der.insertarElemento(nombre)
+                    self.der.insertarElemento(nombre,valores)
         else:
             self.nombre = nombre
-    
-    def buscar(self, nombre):
-        if nombre < self.nombre:
-            if self.izq is None:
-                return self
-            return self.izq.buscar(nombre)
-        elif nombre > self.nombre:
-            if self.der is None:
-                return self
-            return self.der.buscar(nombre)
-        else:
-            return str(self.nombre)
-
+            self.insertarPaginas(self.der, valores)
+    def printy (self):
+            if self.nombre is None:
+                print("-1")
+            else:
+                if self.izq is None:
+                    if self.der is None:
+                     print(self.nombre,"  ",end="")
+                     self.pags.printy()
+                     self.subT.printy()
+                     print()
+                    else:
+                      print(self.nombre," ",end="")
+                      self.pags.printy()
+                      self.subT.printy()
+                      print()
+                      self.der.printy()  
+                else:
+                    if self.der is None:
+                        self.izq.printy()    
+                        print(self.nombre,"  ",end="")
+                        self.pags.printy()
+                        self.subT.printy()
+                        print()
+                    else:   
+                        self.izq.printy()    
+                        print(self.nombre,"  ",end="") 
+                        self.pags.printy()
+                        self.subT.printy()
+                        print()
+                        self.der.printy()    
+            
 class sTerminos:
-    def __init__(self, nombre):
+    def _init_(self, nombre):
         self.nombre = nombre
         self.izq = None
         self.der = None
-        self.pags = None
-    
-    def insertarElemento(self, nombre):
+        self.pags = numPaginas("")      
+    def insertarElemento(self, nombre,valores):
         if self:
             if nombre < self.nombre:
                 if self.izq is None:
                     self.izq = sTerminos(nombre)
+                    insertarPaginas(self.izq,valores)
                 else:
-                    self.izq.insertarElemento(nombre)
+                    self.izq.insertarElemento(nombre,valores)
             elif nombre > self.nombre:
                 if self.der is None:
                     self.der = sTerminos(nombre)
+                    insertarPaginas(self.der,valores)
                 else:
-                    self.der.insertarElemento(nombre)
+                    self.der.insertarElemento(nombre,valores)
         else:
             self.nombre = nombre
-    
+            insertarPaginas(self,valores)
+    def printy (self):
+            if self.nombre is None:
+                print("-1")
+            else:
+                if self.izq is None:
+                    if self.der is None:
+                     print(self.nombre,"  ",end="")
+                     self.pags.printy()
+                     print()
+                    else:
+                      print(self.nombre," ",end="")
+                      self.pags.printy()
+                      print()
+                      self.der.printy()  
+                else:
+                    if self.der is None:
+                        self.izq.printy()    
+                        print(self.nombre,"  ",end="")
+                        self.pags.printy()
+                        print()
+                    else:   
+                        self.izq.printy()    
+                        print(self.nombre,"  ",end="") 
+                        self.pags.printy()
+                        print()
+                        self.der.printy()    
 
 class numPaginas:
-    def __init__(self, numPag):
-        self.numPag = numPag
+    def _init_(self, numPag):
+        self.nombre = numPag
         self.izq = None
         self.der = None
     
     def insertarPag(self, numPag):
         if self:
-            if numPag < self.numPag:
+            if self.nombre == "":
+               self.nombre = numPag  
+            elif numPag < self.nombre:
                 if self.izq is None:
-                    self.izq = pTerminos(numPag)
+                    self.izq = numPaginas(numPag)
                 else:
-                    self.izq.insertarElemento(numPag)
-            elif numPag > self.numPag:
+                    self.izq.insertarPag(numPag)
+            elif numPag > self.nombre:
                 if self.der is None:
-                    self.der = pTerminos(numPag)
+                    self.der = numPaginas(numPag)
                 else:
-                    self.der.insertarElemento(numPag)
+                    self.der.insertarPag(numPag)
         else:
-            self.numPag = numPag
+            self.nombre = numPag
+    def printy (self):
+            if self.nombre is None:
+                print("-1")
+            else:
+                if self.izq is None:
+                    if self.der is None:
+                     print(self.nombre,"  ",end="")
+                    else:
+                      print(self.nombre," ",end="")
+                      self.der.printy()  
+                else:
+                    if self.der is None:
+                        self.izq.printy()    
+                        print(self.nombre,"  ",end="")
+                    else:   
+                        self.izq.printy()    
+                        print(self.nombre,"  ",end="") 
+                        self.der.printy()    
 
-def crearTermino(nombre):
-    nuevo = pTerminos(nombre)
-
-def crearsubTermino(nombre):
-    nuevo = sTerminos(nombre)
-
-def crearPaginas(numPag):
-    nuevo = pTerminos(numPag)
-
-
-
-
-def printTree(node, level = 0):
-    if node != None:
-        printTree(node.der, level + 1)
-        print('  ' * 4 * level + "(" + str(level) + ")" + '-> ' + str(node.nombre))
-        printTree(node.izq, level + 1)
-
-def main():
-  # Leyendo el archivo
-  datos=open("datos.txt", "r")
-  texto = datos.readlines()
-
-  root = pTerminos("")
-  pags = numPaginas(0)
-  root.pags= pags
-
-  #Recorriendo las lineas del archivo
-  for numLinea in range(len(texto)):
-    #La variable i es el número de la línea 
-
-    cadena = texto[numLinea]
-
-    #Verificamos dónde se halla el primer dígito de la cadena
+def separarDigitos(lineaPaginas,digitos):
+        act = int(digitos)
+        next1 = act + 2
+        digitos= []
+        for digitosPag in range(act,len(lineaPaginas),2):
+            digitos.append(lineaPaginas[act:next1])
+            act += 2
+            next1 += 2
+        
+        return digitos
+def digito(cadena):
     digito = 0
-    for posInLinea in cadena:
-    #La variable j es la posicion dentro de una linea
+    for i in cadena:
         if(cadena[digito].isdigit()):
             break
-        else:
+        else: 
             digito += 1
-
-
-    primeraLetra = cadena[0].lower()
-    #Dependiendo del término con el que empiece creamos un árbol
-    if(primeraLetra == 'm'):
-        #Insertarmos el nombre del término principal en un nodo de pTerminos
-        nom = cadena[2:digito]
-        root.insertarElemento(nom)
-
-        #Creamos el árbol de páginas para ese nodo principal
-     
-        cantPag = int(cadena[digito])
-        #print(cantPag)
-
-        act = 0
-        next1 = 2
-
-        lineaPaginas = cadena[digito+1:len(cadena)-2]
-        print(lineaPaginas)
-
-        #Lista para guardar las páginas
-        paginasIndividuales = []
-
-        #Recorremos la linea de lectura de dos en dos para extraer el num de pag
-        
-        for digitosPag in range(0,len(lineaPaginas),2):
-               paginasIndividuales.append(lineaPaginas[act:next1])
-               act += 2
-               next1 += 2
-        
-        """for i in range(len(paginasIndividuales)):
-            print(paginasIndividuales[i])
-                #pags.insertarPag(int(cadena[digito:next]))"""
-
-        """pagesTree = numPaginas(cantPag)
-        prinPags.pags = pagesTree"""
-        
-        #Insertamos en varios nodos las páginas de manera organizada
-        #for i in range(cantPag):
-         #   print("Hola")
-
+    return digito
+def insertarPaginas(nodo, listapagina): #metodo para insertar las paginas una vez creado el nodo
+    for i in listapagina:
+        nodo.pags.insertarPag(i)
+def main():
     
-
-
-
-  #printTree(root)
-  #mostrarArbol(root)
-
-  datos.close()
+    root = pTerminos("")
+    while True:
+        palabra = input()
+        if palabra[0] == "m":
+            digit = digito(palabra)
+            lista_pag = separarDigitos(palabra,digit)
+            print(lista_pag)
+            lista_pag.sort()
+            root.insertarElemento(palabra[2:digit],lista_pag)
+        elif palabra[0] == "s":
+            digit = digito(palabra)
+            lista_pag = separarDigitos(palabra,digit)
+        else:
+                break
+    print(root.printy())
 main()
