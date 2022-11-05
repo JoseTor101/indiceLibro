@@ -167,7 +167,7 @@ class numPaginas:
                         self.der.printy()    
 
 def separarDigitos(lineaPaginas,digitos):
-        act = int(digitos)
+        act = int(digitos+1)
         next1 = act + 2
         digitos= []
         for digitosPag in range(act,len(lineaPaginas),2):
