@@ -1,6 +1,10 @@
 m arboles52705135602 
+s binarios3432201
+s grafos21716
 m pilas435672125
 m colas324589021
+s operaciones21716
 m matrices3562321
+
 
 

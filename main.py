@@ -104,23 +104,23 @@ class sTerminos:
             else:
                 if self.izq is None:
                     if self.der is None:
-                     print(self.nombre,"  ",end="")
+                     print("\t",self.nombre,"  ",end="")
                      self.pags.printy()
                      print()
                     else:
-                      print(self.nombre," ",end="")
+                      print("\t",self.nombre,"  ",end="")
                       self.pags.printy()
                       print()
                       self.der.printy()  
                 else:
                     if self.der is None:
                         self.izq.printy()    
-                        print(self.nombre,"  ",end="")
+                        print("\t",self.nombre,"  ",end="")
                         self.pags.printy()
                         print()
                     else:   
                         self.izq.printy()    
-                        print(self.nombre,"  ",end="") 
+                        print("\t",self.nombre,"  ",end="") 
                         self.pags.printy()
                         print()
                         self.der.printy()    
@@ -196,13 +196,15 @@ def main():
                 lista_pag = separarDigitos(linea,digit)
                 lista_pag.sort()
                 if lista_pag[0] == "\n" or " \n":
-                 lista_pag.pop(0)
+                 lista_pag.pop(0) 
                 root.insertarElemento(linea[2:digit],lista_pag)
             elif linea[0] == "s":
                 digit = digito(linea)
                 lista_pag = separarDigitos(linea,digit)
                 lista_pag.sort()
-               # root.subTinsertarElemento(linea[2:digit],lista_pag)
+                if lista_pag[0] == "\n" or " \n":
+                 lista_pag.pop(0) 
+                root.subT.insertarElemento(linea[2:digit],lista_pag)
     print(root.printy())
         
 main()
