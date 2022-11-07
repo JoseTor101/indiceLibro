@@ -6,21 +6,17 @@ class pTerminos:
         self.subT = sTerminos("")
         self.pags = numPaginas("")
 
-    def insertarSterminos(self,nodo, palabra):
-        while True:
-            #palabra = input()
-            if palabra[0] == "s":
-                digit = digito(palabra)
-                lista_pag = separarDigitos(palabra,digit)
-                print(lista_pag)
-                lista_pag.sort()
-                nodo.subT.insertarElemento(palabra[2:digit],lista_pag)
-            elif palabra[0] == "s":
-                digit = digito(palabra)
-                lista_pag = separarDigitos(palabra,digit)
-            else:
-                break
-        
+    def insertarSterminos(self,nodo, palabra,lista):
+            
+        if self:
+            if self.nombre == nodo:
+               self.subT.insertarElemento(palabra,lista)
+            elif nodo < self.nombre:
+                self.izq.insertarSterminos(nodo,palabra,lista)
+            elif nodo > self.nombre:
+                self.der.insertarSterminos(nodo,palabra,lista)    
+            
+            
     def insertarElemento(self, nombre,valores):
         if self:
             if self.nombre == "":
@@ -195,8 +191,10 @@ def main():
                 digit = digito(linea)
                 lista_pag = separarDigitos(linea,digit)
                 lista_pag.sort()
+
                 if lista_pag[0] == "\n" or " \n":
                  lista_pag.pop(0) 
+                termino = linea[2:digit] 
                 root.insertarElemento(linea[2:digit],lista_pag)
             elif linea[0] == "s":
                 digit = digito(linea)
@@ -204,7 +202,7 @@ def main():
                 lista_pag.sort()
                 if lista_pag[0] == "\n" or " \n":
                  lista_pag.pop(0) 
-                root.subT.insertarElemento(linea[2:digit],lista_pag)
+                root.insertarSterminos(termino,linea[2:digit],lista_pag)
     print(root.printy())
         
 main()
