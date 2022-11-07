@@ -123,43 +123,44 @@ class sTerminos:
 
 class numPaginas:
     def __init__(self, numPag):
-        self.nombre = numPag
+        self.numPag = numPag
         self.izq = None
         self.der = None
     
     def insertarPag(self, numPag):
         if self:
-            if self.nombre == "":
-               self.nombre = numPag  
-            elif numPag < self.nombre:
+            if self.numPag == "":
+               self.numPag = numPag  
+            elif numPag < self.numPag:
                 if self.izq is None:
                     self.izq = numPaginas(numPag)
                 else:
                     self.izq.insertarPag(numPag)
-            elif numPag > self.nombre:
+            elif numPag > self.numPag:
                 if self.der is None:
                     self.der = numPaginas(numPag)
                 else:
                     self.der.insertarPag(numPag)
         else:
-            self.nombre = numPag
+            self.numPag = numPag
+
     def printy (self):
-            if self.nombre is None:
+            if self.numPag is None:
                 print("-1")
             else:
                 if self.izq is None:
                     if self.der is None:
-                     print(self.nombre,"  ",end="")
+                     print(self.numPag,"  ",end="")
                     else:
-                      print(self.nombre,"  ",end="")
+                      print(self.numPag,"  ",end="")
                       self.der.printy()  
                 else:
                     if self.der is None:
                         self.izq.printy()    
-                        print(self.nombre,"  ",end="")
+                        print(self.numPag,"  ",end="")
                     else:   
                         self.izq.printy()    
-                        print(self.nombre,"  ",end="") 
+                        print(self.numPag,"  ",end="") 
                         self.der.printy()    
 
 def separarDigitos(lineaPaginas,digitos):
@@ -173,15 +174,17 @@ def separarDigitos(lineaPaginas,digitos):
         return digitos
 def digito(cadena):
     digito = 0
-    for i in cadena:
+    while cadena:
         if(cadena[digito].isdigit()):
-            break
+             break
         else: 
-            digito += 1
+             digito += 1
     return digito
+
 def insertarPaginas(nodo, listapagina): #metodo para insertar las paginas una vez creado el nodo
     for i in listapagina:
         nodo.pags.insertarPag(i)
+        
 def main():
     root = pTerminos("")
 
